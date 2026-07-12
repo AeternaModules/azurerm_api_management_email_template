@@ -1,3 +1,7 @@
+output "api_management_email_templates_id" {
+  description = "Map of id values across all api_management_email_templates, keyed the same as var.api_management_email_templates"
+  value       = { for k, v in azurerm_api_management_email_template.api_management_email_templates : k => v.id }
+}
 output "api_management_email_templates_api_management_name" {
   description = "Map of api_management_name values across all api_management_email_templates, keyed the same as var.api_management_email_templates"
   value       = { for k, v in azurerm_api_management_email_template.api_management_email_templates : k => v.api_management_name }
