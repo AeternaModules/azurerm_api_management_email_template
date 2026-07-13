@@ -16,14 +16,6 @@ EOT
     subject             = string
     template_name       = string
   }))
-  validation {
-    condition = alltrue([
-      for k, v in var.api_management_email_templates : (
-        length(v.body) > 0
-      )
-    ])
-    error_message = "must not be empty"
-  }
   # --- Unconfirmed validation candidates, derived from azurerm_api_management_email_template's provider source ---
   # Not auto-enabled: either a bespoke provider validator we can't safely translate,
   # or a path that crosses a list-typed block (needs its own for_each wrapping).
@@ -46,5 +38,8 @@ EOT
   #   source:    [from validate.ApiManagementServiceName] !matched
   # path: template_name
   #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
+  # path: body
+  #   condition: length(value) > 0
+  #   message:   must not be empty
 }
 
